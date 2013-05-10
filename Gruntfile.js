@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> - <%= pkg.version %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n',
+                banner: '/*! <%= pkg.name %> - version:<%= pkg.version %> - <%= pkg.author %> <%= pkg.website %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n',
                 compress: {
                     global_defs: {
                         "DEBUG": false
@@ -21,6 +21,21 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     'C:/codex/JHM-SiteExecutive/www/lib/js/jquery.modalHome.min.js': ['js/jquery.modalHome.js']
+                }
+            }
+        },
+        cssmin: {
+            options: {
+                banner: '/*! <%= pkg.name %> - version:<%= pkg.version %> - <%= pkg.author %> <%= pkg.website %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+            },
+            dev: {
+                files: {
+                    'build/modalHome.min.css': ['css/modalHome.css']
+                }
+            },
+            dist: {
+                files: {
+                    'C:/codex/JHM-SiteExecutive/www/lib/css/modalHome.min.css': ['css/modalHome.css']
                 }
             }
         },
@@ -42,8 +57,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     
     grunt.registerTask('test', ['jshint', 'qunit']);
-    grunt.registerTask('dist', ['uglify:dist']);
-    grunt.registerTask('default', ['jshint', 'qunit', 'uglify:dev']);
+    grunt.registerTask('dist', ['uglify:dist', 'cssmin:dist']);
+    grunt.registerTask('default', ['jshint', 'qunit', 'uglify:dev', 'cssmin:dev']);
 };

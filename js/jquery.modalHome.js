@@ -55,20 +55,20 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
             }
             
             $('.' + settings.modalHomeClose).on('click', function () {
-                console.log('close click');
+                if (DEBUG) { console.log('close click'); }
                 modal.trigger(settings.modalHomeCloseEvent);
             });
             
-            console.log('setup events');
+            if (DEBUG) {console.log('setup events'); }
             // close event
             modal.on(settings.modalHomeCloseEvent, function () {
-                console.log(settings.modalHomeCloseEvent + ' event');
+                if (DEBUG) { console.log(settings.modalHomeCloseEvent + ' event'); }
                 hideModal(modal);
                 modal.off(settings.modalHomeCloseEvent);
             });
             // open event
             modal.on(settings.modalHomeOpenEvent, function () {
-                console.log(settings.modalHomeOpenEvent + ' event');
+				if (DEBUG) { console.log(settings.modalHomeOpenEvent + ' event'); }
                 revealModal(modal);
                 modal.off(settings.modalHomeOpenEvent);
             });
@@ -91,7 +91,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
             return { 'modal': modal, 'modalBg': modalBG };
 		},
         ajax: function (options) {
-            console.log('ajax init');
+            if (DEBUG) { console.log('ajax init'); }
             var container = $.fn.modalHome(options),
                 settings = getSettings();
             
@@ -102,14 +102,14 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
                 url: options.url
             }).done(function (data) {
                 
-                console.log('ajax success');
+                if (DEBUG) { console.log('ajax success'); }
                 populateModal(data);
                 if ($.isFunction(options.success)) {
                     options.success(data);
                 }
                 hideLoader();
             }).error(function (data) {
-                console.log('ajax failure', data, data.statusCode());
+                if (DEBUG) { console.log('ajax failure', data, data.statusCode()); }
                 populateModal('Failed to load resource');
                 if ($.isFunction(options.failure)) {
                     options.failure(data);
@@ -137,7 +137,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
     
     var revealModal = function (modal) {
         var settings = getSettings();
-        console.log('reveal');
+        if (DEBUG) { console.log('reveal'); }
         
         $('.' + settings.modalHomeBg).show();
         $('.' + settings.modalHomeDiv).fadeIn(500);
@@ -145,7 +145,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
     
     var hideModal = function (modal) {
         var settings = getSettings();
-        console.log('hide');
+        if (DEBUG) { console.log('hide'); }
         
         $('.' + settings.modalHomeDiv).fadeOut(500);
         $('.' + settings.modalHomeBg).delay(500).hide();
@@ -153,7 +153,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
     
     var populateModal = function (content) {
         var settings = getSettings();
-        console.log('populate content', content);
+        if (DEBUG) { console.log('populate content', content); }
         $('.' + settings.modalHomeContent).html(content);
     };
     

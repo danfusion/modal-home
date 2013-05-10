@@ -47,7 +47,7 @@
 
 .jhm-modal .jhm-modal-loading {
     width:100%;
-    background: #fff url('../img/ajax-loader.gif') no-repeat center;
+    background: #fff url('http://www.hopkinsmedicine.org/sebin/custom/hopkins_apps/ajax-loader.gif') no-repeat center;
     height: 150px;
     display: none;
 }
