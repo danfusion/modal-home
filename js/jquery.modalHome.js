@@ -1,118 +1,175 @@
 /*global $:true,jQuery:true*/
-/*jslint debug: true, devel: true, evil: true, vars: true, sloppy: true, undef: true */
+/*jslint debug: true, devel: true, evil: true, vars: true, undef: true */
+if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
 (function ($) {
+    
+    // global variables setup
+    var globals = {};
+    
+    var getSettings = function () {
+        return globals;
+    };
+    
+    var setSettings = function (options) {
+        // public / defaults
+        globals = $.extend({
+            'content'           : '',
+            'immediateDisplay'  : false,
+            'modalHomeBg'       : 'jhm-modal-bg',
+            'modalHomeDiv'      : 'jhm-modal',
+            'modalHomeClose'    : 'jhm-modal-close',
+            'modalHomeLoader'  : 'jhm-modal-loading',
+            'modalHomeContent'  : 'jhm-modal-content',
+            'modalHomeOpenEvent'    : 'jhm.modal.open',
+            'modalHomeCloseEvent'   : 'jhm.modal.close'
+        }, options);
+        
+        return globals;
+    };
 
 	var methods = {
 		init : function (options) {
-			// public / defaults
-			var settings = $.extend({
-                'content' : '',
-				'tableClass' : 'responsive',
-				'minWidth' : 767
-			}, options);
+			var settings = setSettings(options);
+            
+            if (DEBUG) { console.log(this, settings); }
+            
+            if (this.length > 0 && this.html() !== '') {
+                settings.content = this.html();
+                setSettings(settings);
+            }
 
-            var modalBG = $('.jhm-modal-bg'),
-                modal = $('.jhm-modal');
-
+            var modalBG = $('.' + settings.modalHomeBg),
+                modal = $('.' + settings.modalHomeDiv);
+            
             if (modalBG.length === 0) {
                 modalBG = createBg();
             }
             if (modal.length === 0) {
                 modal = createModal();
             }
+            
             // load static html
             if (settings.content.length > 0) {
+                settings.immediateDisplay = true;
                 populateModal(settings.content);
             }
             
-            $('.jhm-modal-close').on('click', function () {
+            $('.' + settings.modalHomeClose).on('click', function () {
                 console.log('close click');
-                modal.trigger('jhm.modal.close');
+                modal.trigger(settings.modalHomeCloseEvent);
             });
             
             console.log('setup events');
             // close event
-            modal.on('jhm.modal.close', function () {
-                console.log('jhm.modal.close');
+            modal.on(settings.modalHomeCloseEvent, function () {
+                console.log(settings.modalHomeCloseEvent + ' event');
                 hideModal(modal);
-                modal.off('jhm.modal.close');
+                modal.off(settings.modalHomeCloseEvent);
             });
             // open event
-            modal.on('jhm.modal.open', function () {
-                console.log('jhm.modal.open');
+            modal.on(settings.modalHomeOpenEvent, function () {
+                console.log(settings.modalHomeOpenEvent + ' event');
                 revealModal(modal);
-                modal.off('jhm.modal.open');
+                modal.off(settings.modalHomeOpenEvent);
             });
             // esc press event
             $('body').on('keyup', function (e) {
                 if (e.which === 27) {
-                    modal.trigger('jhm.modal.close');
+                    modal.trigger(settings.modalHomeCloseEvent);
                 }
 			});
             // bg click close
-            $('.jhm-modal-bg').on('click', function () {
-                modal.trigger('jhm.modal.close');
+            $('.' + settings.modalHomeBg).on('click', function () {
+                modal.trigger(settings.modalHomeCloseEvent);
             });
             
             // show immediately
-            modal.trigger('jhm.modal.open');
-            /*
-			return this.each(function (i) {
-
-				var $this = $(this),
-					data = $this.data('modalHome');
-				
-				if (!data) {
-					$this.data('modalHome', settings);
-				}
-                
-			});
-            */
+            if (settings.immediateDisplay === true) {
+                modal.trigger(settings.modalHomeOpenEvent);
+            }
+            
+            return { 'modal': modal, 'modalBg': modalBG };
 		},
-        hide: function () {
-            console.log('arguments', arguments);
-            $('.jhm-modal').trigger('jhm.modal.close');
+        ajax: function (options) {
+            console.log('ajax init');
+            var container = $.fn.modalHome(options),
+                settings = getSettings();
+            
+            showLoader();
+            container.modal.trigger(settings.modalHomeOpenEvent);
+            
+            $.ajax({
+                url: options.url
+            }).done(function (data) {
+                
+                console.log('ajax success');
+                populateModal(data);
+                if ($.isFunction(options.success)) {
+                    options.success(data);
+                }
+                hideLoader();
+            }).error(function (data) {
+                console.log('ajax failure', data, data.statusCode());
+                populateModal('Failed to load resource');
+                if ($.isFunction(options.failure)) {
+                    options.failure(data);
+                }
+                hideLoader();
+            });
         },
-        destroy : function () {
-			/*
-			return this.each(function () {
-			
-				var $this = $(this),
-					data = $this.data('modalHome');
-				
-				data.rejoinder.remove();
-				
-			});
-            */
-			
-		}
+        hide: function () {
+            var settings = getSettings();
+            
+            $('.' + settings.modalHomeDiv).trigger(settings.modalHomeCloseEvent);
+        }
 	};
     
     // private functions
     var createBg = function () {
-        return $('body').append('<div class="jhm-modal-bg" />');
+        var settings = getSettings();
+        return $('body').append('<div class="' + settings.modalHomeBg + '" />');
     };
     
     var createModal = function (content) {
-        return $('.jhm-modal-bg').before('<div class="jhm-modal"><div class="jhm-modal-close">x</div><div class="jhm-modal-content"></div></div>');
+        var settings = getSettings();
+        return $('.' + settings.modalHomeBg).before('<div class="' + settings.modalHomeDiv + '"><div class="' + settings.modalHomeClose + '">x</div><div class="' + settings.modalHomeLoader + '"></div><div class="' + settings.modalHomeContent + '"></div></div>');
     };
     
     var revealModal = function (modal) {
+        var settings = getSettings();
         console.log('reveal');
         
-        $('.jhm-modal-bg').show();
-        $('.jhm-modal').fadeIn(500);
+        $('.' + settings.modalHomeBg).show();
+        $('.' + settings.modalHomeDiv).fadeIn(500);
     };
     
     var hideModal = function (modal) {
+        var settings = getSettings();
         console.log('hide');
         
-        $('.jhm-modal').fadeOut(500);
-        $('.jhm-modal-bg').delay(500).hide();
+        $('.' + settings.modalHomeDiv).fadeOut(500);
+        $('.' + settings.modalHomeBg).delay(500).hide();
     };
     
     var populateModal = function (content) {
-        $('.jhm-modal-content').html(content);
+        var settings = getSettings();
+        console.log('populate content', content);
+        $('.' + settings.modalHomeContent).html(content);
+    };
+    
+    var showLoader = function () {
+        var settings = getSettings();
+        
+        $('.' + settings.modalHomeContent).hide();
+        $('.' + settings.modalHomeLoader).show();
+        
+    };
+    
+    var hideLoader = function () {
+        var settings = getSettings();
+        
+        $('.' + settings.modalHomeContent).show();
+        $('.' + settings.modalHomeLoader).hide();
     };
     
 	$.fn.modalHome = function (method) {
