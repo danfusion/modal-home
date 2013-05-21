@@ -136,11 +136,16 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
     };
     
     var revealModal = function (modal) {
-        var settings = getSettings();
+        var settings = getSettings(),
+            modalTopSetting = parseInt($('.' + settings.modalHomeDiv).css('top').replace('px', ''), 10),
+            scrollTop = parseInt($(document).scrollTop(), 10);
         if (DEBUG) { console.log('reveal'); }
         
         $('.' + settings.modalHomeBg).show();
+        if (DEBUG) { console.log('window top ', scrollTop, modalTopSetting); }
+        $('.' + settings.modalHomeDiv).css({top: scrollTop + modalTopSetting});
         $('.' + settings.modalHomeDiv).fadeIn(500);
+        
     };
     
     var hideModal = function (modal) {
