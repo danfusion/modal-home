@@ -17,34 +17,7 @@
 
 		<script src="js/jquery-1.8.3.min.js"></script>
 		<script src="js/jquery.modalHome.js"></script>
-        <!-- <script src="js/require-com.js"></script> -->
-        <!--<script src="js/jquery-1.9.1.min.js"></script>-->
         <script>
-            /*global $:true*/
-            /*jslint debug: true, devel: true, evil: true, vars: true, sloppy: true */
-            /*
-            require.config({
-                baseUrl: 'js',
-                paths: {
-                    jquery: 'jquery-1.9.1.min',
-                    jQr: 'jquery-1.8.3.min',
-                    modalHome: 'jquery.modalHome'
-                },
-                shim: {
-                    'jQr': {
-                        exports: 'jQr',
-                        init: function () {
-                            console.log(this,jQr);
-                            return this.noConflict();   
-                        }
-                    },
-                    'jquery.modalHome': ['jquery']
-                }
-            });
-            require(['domready!','jquery','jQr'],function(d,jQuery) {
-                console.log("init",d,$.fn.jquery,jQr.fn.jquery); 
-            });
-            */
             console.log('init');            
         </script>
     </head>
@@ -53,14 +26,5 @@
         <div id="qunit-fixture"></div>
             <script src="tests/qunit.js"></script>
             <script src="tests/test-runner.js"></script>
-            <!--
-            <script>
-            test( "a basic test example", function() {
-            var value = "hello";
-            equal( value, "hello", "We expect value to be hello" );
-            });
-            </script>
-            -->
-            
     </body>
 </html>

@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> - version:<%= pkg.version %> - <%= pkg.author %> <%= pkg.website %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n',
+                banner: '/*! <%= pkg.name %> - version:<%= pkg.version %> - <%= pkg.author.name %> <%= pkg.repository.url %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n',
                 compress: {
                     global_defs: {
                         "DEBUG": false
@@ -20,13 +20,13 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'C:/codex/JHM-SiteExecutive/www/lib/js/jquery.modalHome.min.js': ['js/jquery.modalHome.js']
+                    '<%= pkg.distPath %>js/jquery.modalHome.min.js': ['js/jquery.modalHome.js']
                 }
             }
         },
         cssmin: {
             options: {
-                banner: '/*! <%= pkg.name %> - version:<%= pkg.version %> - <%= pkg.author %> <%= pkg.website %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+                banner: '/*! <%= pkg.name %> - version:<%= pkg.version %> - <%= pkg.author.name %> <%= pkg.repository.url %> - <%= grunt.template.today("dd-mm-yyyy") %> */\n'
             },
             dev: {
                 files: {
@@ -35,7 +35,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'C:/codex/JHM-SiteExecutive/www/lib/css/modalHome.min.css': ['css/modalHome.css']
+                    '<%= pkg.distPath %>css/modalHome.min.css': ['css/modalHome.css']
                 }
             }
         },
