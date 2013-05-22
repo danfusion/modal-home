@@ -8,12 +8,16 @@ test("ModalHome plugin loaded", function () {
 
 module("Plugin Generation", {
     teardown: function () {
+        var $fixture = $("#qunit-fixture");
         // cleanup page elements
         $('.jhm-modal-bg').remove();
         $('.jhm-modal').remove();
         // if present, cleanup
         $('.test-modal-bg').remove();
         $('.test-modal').remove();
+        //reset scroll
+        $(window).scrollTop(0);
+        $fixture.removeAttr('style');
     }
 });
 asyncTest("ModalHome modal generated", 8, function () {
@@ -99,6 +103,37 @@ asyncTest("ModalHome background click closes modal", 2, function () {
         equal($('.jhm-modal:visible').length, 0, "Modal panel should not be visible");
         start();
     }, 1500);
+});
+asyncTest("ModalHome aligns to scroll height", 1, function () {
+    var $fixture = $("#qunit-fixture"),
+        mtp = 50;
+    // make window scrollable
+    $fixture.height(1000);
+    $fixture.css({'top': '0px', 'left': '0px'});
+    
+    var dh = $(document).height(),
+        wh = $(window).height(),
+        ds = dh - wh;
+    console.log('document', dh, 'window height', wh, 'delta scroll', ds);
+    $(window).scrollTop(ds);
+    
+    $fixture.modalHome({content: 'Scroll Height Test', modalTopPadding: mtp});
+    
+    setTimeout(function () {
+        console.log($('.jhm-modal').css('top'));
+        equal($('.jhm-modal').css('top'), ds + mtp + 'px', "Modal panel should be positioned at page scroll + modal top padding");
+        start();
+    }, 750);
+    
+    /*
+    var dh = $(document).height(),
+        wh = $(window).height(),
+        ds = dh - wh;
+    
+    $(window).scrollTop(ds);
+    
+    console.log($('.jhm-modal').css('top'));
+    */
 });
 
 module("Plugin Content", {
