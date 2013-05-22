@@ -15,6 +15,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
         globals = $.extend({
             'content'           : '',
             'immediateDisplay'  : false,
+            'modalTopPadding'   : 75,
             'modalHomeBg'       : 'jhm-modal-bg',
             'modalHomeDiv'      : 'jhm-modal',
             'modalHomeClose'    : 'jhm-modal-close',
@@ -137,13 +138,12 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
     
     var revealModal = function (modal) {
         var settings = getSettings(),
-            modalTopSetting = parseInt($('.' + settings.modalHomeDiv).css('top').replace('px', ''), 10),
             scrollTop = parseInt($(document).scrollTop(), 10);
         if (DEBUG) { console.log('reveal'); }
         
         $('.' + settings.modalHomeBg).show();
-        if (DEBUG) { console.log('window top ', scrollTop, modalTopSetting); }
-        $('.' + settings.modalHomeDiv).css({top: scrollTop + modalTopSetting});
+        if (DEBUG) { console.log('window top: ', scrollTop, 'top padding: ', settings.modalTopPadding); }
+        $('.' + settings.modalHomeDiv).css({top: scrollTop + settings.modalTopPadding});
         $('.' + settings.modalHomeDiv).fadeIn(500);
         
     };
