@@ -22,7 +22,8 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
             'modalHomeLoader'  : 'jhm-modal-loading',
             'modalHomeContent'  : 'jhm-modal-content',
             'modalHomeOpenEvent'    : 'jhm.modal.open',
-            'modalHomeCloseEvent'   : 'jhm.modal.close'
+            'modalHomeCloseEvent'   : 'jhm.modal.close',
+            'ajaxFailureContent'    : 'Failed to load resource'
         }, options);
         
         return globals;
@@ -111,7 +112,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
                 hideLoader();
             }).error(function (data) {
                 if (DEBUG) { console.log('ajax failure', data, data.statusCode()); }
-                populateModal('Failed to load resource');
+                populateModal(settings.ajaxFailureContent);
                 if ($.isFunction(options.failure)) {
                     options.failure(data);
                 }
