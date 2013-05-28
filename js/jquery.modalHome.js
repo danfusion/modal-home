@@ -103,20 +103,21 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
             $.ajax({
                 url: options.url
             }).done(function (data) {
-                
                 if (DEBUG) { console.log('ajax success'); }
+                hideLoader();
                 populateModal(data);
+                
                 if ($.isFunction(options.success)) {
                     options.success(data);
                 }
-                hideLoader();
             }).error(function (data) {
                 if (DEBUG) { console.log('ajax failure', data, data.statusCode()); }
+                hideLoader();
                 populateModal(settings.ajaxFailureContent);
+                
                 if ($.isFunction(options.failure)) {
                     options.failure(data);
                 }
-                hideLoader();
             });
         },
         hide: function () {
