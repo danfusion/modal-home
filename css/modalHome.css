@@ -13,9 +13,10 @@
 .jhm-modal {
     display: none;
     top: 100px; 
-    left: 50%;
-    margin-left: -440px;
-    width: 800px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 660px;
     background: #fff;
     position: absolute;
     z-index: 101;
@@ -50,4 +51,13 @@
     background: #fff url('http://www.hopkinsmedicine.org/sebin/custom/hopkins_apps/ajax-loader.gif') no-repeat center;
     height: 150px;
     display: none;
+}
+
+@media screen and (max-width: 740px) {
+.jhm-modal {
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+}
 }
