@@ -11,6 +11,8 @@
 }
     
 .jhm-modal {
+    font-size:12px;
+    line-height:19px;
     display: none;
     top: 100px; 
     left: 0;
@@ -53,11 +55,20 @@
     display: none;
 }
 
+.jhm-modal {color:#4A4A4A;font-size:12px;line-height:19px;margin-top:25px;padding:0;}
+.jhm-modal .researcherProfile{padding:10px;}
+.jhm-modal h1.mainBodyContentTitle{padding:10px 0 0 0px;}
+.jhm-modal .profileReturn{display:none;}
+
 @media screen and (max-width: 740px) {
-.jhm-modal {
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    margin: 0;
+    .jhm-modal {
+        left: 0;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    .jhm-modal-content {
+        padding: 15px;
+    }
 }
-}
+    
