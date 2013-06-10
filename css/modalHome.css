@@ -15,14 +15,11 @@
     line-height:19px;
     display: none;
     top: 100px; 
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: 660px;
+    left: 15%;
+    width: 70%;
     background: #fff;
     position: absolute;
     z-index: 1001;
-    padding: 30px 40px 34px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -30,15 +27,17 @@
     -webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
     -box-shadow: 0 0 10px rgba(0,0,0,.4);
 }
-	
-.jhm-modal.small 		{ width: 200px; margin-left: -140px;}
-.jhm-modal.medium 		{ width: 400px; margin-left: -240px;}
-.jhm-modal.large 		{ width: 600px; margin-left: -340px;}
-.jhm-modal.xlarge 		{ width: 800px; margin-left: -440px;}
+.jhm-modal-content {
+    padding: 20px;
+}
+
+.jhm-modal.small        { width: 200px; margin-left: -140px;}
+.jhm-modal.medium       { width: 400px; margin-left: -240px;}
+.jhm-modal.large        { width: 600px; margin-left: -340px;}
+.jhm-modal.xlarge       { width: 800px; margin-left: -440px;}
 
 .jhm-modal .jhm-modal-close {
     font-size: 22px;
-    line-height: .5;
     position: absolute;
     top: 8px;
     right: 11px;
@@ -61,6 +60,7 @@
 .jhm-modal .profileReturn{display:none;}
 
 @media screen and (max-width: 740px) {
+
     .jhm-modal {
         left: 0;
         width: 96%;
