@@ -4,7 +4,7 @@
     width: 100%;
     background: #000;
     background: rgba(0,0,0,.8);
-    z-index: 100;
+    z-index: 1000;
     display: none;
     top: 0;
     left: 0; 
@@ -17,7 +17,7 @@
     width: 70%;
     background: #fff;
     position: absolute;
-    z-index: 101;
+    z-index: 1001;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
