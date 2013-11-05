@@ -103,7 +103,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
             $.ajax({
                 url: options.url
             }).done(function (data) {
-                if (DEBUG) { console.log('ajax success'); }
+                if (DEBUG) { console.log('ajax success', options.success); }
                 hideLoader();
                 populateModal(data);
                 
@@ -161,6 +161,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
     var populateModal = function (content) {
         var settings = getSettings();
         if (DEBUG) { console.log('populate content', content); }
+        $('.' + settings.modalHomeContent).empty();
         $('.' + settings.modalHomeContent).html(content);
     };
     

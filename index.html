@@ -60,7 +60,7 @@
             $(document).ready( function () {
                 console.log('init content');
                 $('.jhmModalOpen').on('click',function (e) {
-                    $(e.target).modalHome('ajax', {url: 'large_page.html?foo=129509385',success: function (data) {console.log('success function: ', data);} });
+                    $(e.target).modalHome('ajax', {url: 'http://dev12.stage.hopkinsmedicine.org/profiles/results/directory/profile/0022462/peter-abadir',success: function (data) {console.log('success function: ', data);} });
                     
                     //$('.modalDataHidden').modalHome();
                 });
