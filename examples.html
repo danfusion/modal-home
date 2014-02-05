@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Modal Home Plugin</title>
+        <link rel="stylesheet" href="stylesheets/bootstrap.min.css" />
+		<link rel="stylesheet" href="stylesheets/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="stylesheets/modalHome.min.css" />
+
+        <style>
+        .test-modal-bg { 
+            position: fixed; 
+            height: 100%;
+            width: 100%;
+            background: #000;
+            background: rgba(155,0,155,.8);
+            z-index: 100;
+            display: none;
+            top: 0;
+            left: 0; 
+        }
+            
+        .test-modal {
+            display: none;
+            top: 100px; 
+            left: 50%;
+            margin-left: -440px;
+            width: 800px;
+            background: #333;
+            color: #fff;
+            position: absolute;
+            z-index: 101;
+            padding: 30px 40px 34px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            -moz-box-shadow: 0 0 10px rgba(0,0,0,.4);
+            -webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
+            -box-shadow: 0 0 10px rgba(0,0,0,.4);
+        }
+        
+        .test-modal .test-modal-close {
+            font-size: 22px;
+            line-height: .5;
+            position: absolute;
+            top: 8px;
+            right: 11px;
+            color: #aaa;
+            text-shadow: 0 -1px 1px rbga(0,0,0,.6);
+            font-weight: bold;
+            cursor: pointer;
+        }
+        </style>
+        
+		<script src="javascripts/jquery-1.8.3.min.js"></script>
+		<script src="javascripts/jquery.modalHome.min.js"></script>
+        <script>
+            try { console.log('init console... done'); } catch(e) { console = { log: function() {} } }
+            $(document).ready( function () {
+                console.log('init content');
+                $('.jhmModalOpen').on('click',function (e) {
+                    //$().modalHome('ajax', {url: 'large_page.html',success: function (data) {console.log('success function: ', data);} });
+                    
+                    $('.modalDataHidden').modalHome();
+                });
+                $('.testModalOpen').on('click',function (e) {
+                    settings = {
+                        'content'           : 'non standard class test',
+                        'immediateDisplay'  : false,
+                        'modalHomeClose'    : 'test-modal-close',
+                        'modalHomeDiv'      : 'test-modal',
+                        'modalHomeBg'       : 'test-modal-bg',
+                        'modalHomeContent'  : 'test-modal-content',
+                        'modalHomeOpenEvent'    : 'test.modal.open',
+                        'modalHomeCloseEvent'   : 'test.modal.close'
+                    };
+            
+                    $().modalHome(settings);
+                });
+                $('.jhmModalElemData').on('click',function (e) {
+                    $('.modalDataHidden').modalHome();
+                });
+                $('.jhmModalOpenScroll').on('click',function (e) {
+                    $(e.target).modalHome('ajax', {url: 'large_page.html', success: function (data) {console.log(data);} });
+                    e.preventDefault();
+                });
+                $('.jhmModalAjaxFail').on('click',function (e) {
+                    $(e.target).modalHome('ajax', {url: 'ajax_data_bad.html',success: function (data) {console.log(data);}, failure: function (data) { console.log(data); }, ajaxFailureContent: 'This is a custom failure message' });
+                    e.preventDefault();
+                });
+            });
+        </script>
+    </head>
+    <body>
+    <div class="container">
+        <div class="span12">
+            <h1>Modal Home Plugin</h1>
+            <a class="jhmModalOpen btn btn-primary" href="#">Click for Modal</a>
+        </div>
+        <div class="span12">
+            <a href="#" class="jhmModalOpenScroll btn">Click for scrolling test</a><br>
+			<a href="#" class="testModalOpen btn">Click for non-standard class test</a><br>
+            <a href="#" class="jhmModalAjaxFail btn">Ajax Failure Message</a><br>
+            <a href="#" class="jhmModalElemData btn">Display jQuery Hidden Element Message</a><br>
+            <hr />
+        </div>
+       
+        <div class="span12">
+            <p class="modalData">
+            Minim iudicem concursionibus, laborum instituendarum non eiusmod. Senserit 
+            quorum elit nescius fugiat, ad ad eruditionem. Aliqua nam nam sint consequat. Si 
+            noster exercitation, hic dolore irure e nostrud aut ubi est domesticarum, 
+            iudicem aute ad ullamco coniunctione. Ubi enim exercitation. Ut officia ea 
+            aliquip, iis ea quem laboris. E e arbitrantur, eu de praetermissum, sed aliqua 
+            appellat, quo ex dolor lorem veniam.
+            </p>
+            <p class="modalDataHidden" style="display:none">
+            Ubi enim exercitation. Ut officia ea 
+            aliquip, iis ea quem laboris. E e arbitrantur, eu de praetermissum, sed aliqua 
+            appellat, quo ex dolor lorem veniam.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+            </p>
+            <p>
+                <a class="jhmModalOpenScroll" href="#">Click for Modal Scroll Test</a>
+            </p>
+        </div>
+        
+    </div>
+    </body>
+</html>
