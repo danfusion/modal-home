@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Modal-home by dmill109</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Modal-home</h1>
+        <p>A simple mobile-friendly modal display.</p>
+
+        <p class="view"><a href="https://github.com/dmill109/modal-home">View the Project on GitHub <small>dmill109/modal-home</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/dmill109/modal-home/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/dmill109/modal-home/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/dmill109/modal-home">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="jquery-modalhome" class="anchor" href="#jquery-modalhome"><span class="octicon octicon-link"></span></a>jQuery ModalHome</h1>
+
+<p>A simple, mobile-friendly jQuery plugin for modal display windows.</p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>You're free to download and use the already minifed files under the build directory or you can see the <a href="#buildGuide">Build Guide</a> for instructions on how to build the files for yourself.</p>
+
+<h3>
+<a name="page-setup" class="anchor" href="#page-setup"><span class="octicon octicon-link"></span></a>Page Setup</h3>
+
+<p>The plugin requires jQuery <code>1.8.3+</code> as well as a css file to function properly. For example code look at the <a href="index.html">index.html</a> page. Basic steps are to:</p>
+
+<ol>
+<li>Include the required css file: <code>&lt;link rel="stylesheet" href="css/modalHome.css" /&gt;</code>
+</li>
+<li>Include jQuery and the ModalHome code: <br><code>&lt;script src="js/jquery-1.8.3.min.js"&gt;&lt;/script&gt;</code><br><code>&lt;script src="js/jquery.modalHome.js"&gt;&lt;/script&gt;</code>
+</li>
+<li>Call the ModalHome code through a page action:
+<code>
+// inside some action
+$.fn.modalHome({content: 'You clicked on the body element!'});
+</code>
+</li>
+</ol><h3>
+<a name="plugin-usage" class="anchor" href="#plugin-usage"><span class="octicon octicon-link"></span></a>Plugin Usage</h3>
+
+<p>The ModalHome plugin has three main ways to be setup. The basic syntax is generally the same for each: <code>$().modalHome('method',{data});</code></p>
+
+<h3>
+<a name="methods" class="anchor" href="#methods"><span class="octicon octicon-link"></span></a>Methods</h3>
+
+<p><strong>Content</strong> - By calling the plugin with no method (the method defaults to 'init') and an object that contains a "content" variable with a string the modal will immediately open with the included string. Example: <code>$().modalHome({content: 'Lorem Ipsum'};</code></p>
+
+<p><strong>Ajax</strong> - The ajax method expects a url to load (required) and two optional variables that should contain success and failure functions respectively. Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">().</span><span class="nx">modalHome</span><span class="p">(</span><span class="s1">'ajax'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">'some url'</span><span class="p">,</span>
+    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'success'</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span> <span class="p">},</span> 
+    <span class="nx">failure</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'failure'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">}</span> 
+<span class="p">});</span>
+</pre></div>
+
+<p>In each case the data returned to the success or failure functions is a <a href="http://api.jquery.com/jQuery.ajax/#jqXHR">jqXHR object</a>. You can specify an exact failure message to be displayed in the modal window if you wish by specifying the "ajaxFailureContent" string in the object you pass into the plugin.</p>
+
+<p><strong>jQuery Element</strong> - Chaining in a jQuery element will cause the modalHome plugin to gather it's data from the inner html of the selected element: <code>$('.someClass').modalHome();</code></p>
+
+<h3>
+<a name="settings-object" class="anchor" href="#settings-object"><span class="octicon octicon-link"></span></a>Settings Object</h3>
+
+<p>For each method, it's possible to pass in a JSON object that specifies a variety of settings for the plugin. Anything from the css classes the plugin will use and generate to the messages it will display.</p>
+
+<table>
+<tr>
+<th>Setting</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+</tr>
+<tr>
+<td>content</td>
+    <td>String/HTML</td>
+    <td>blank</td>
+    <td>This is required by the first ("init") method. This is the string or HTML code to be displayed in the modal.</td>
+</tr>
+<tr>
+<td>modalTopPadding</td>
+    <td>Integer</td>
+    <td>75</td>
+    <td>This is the top "offset" from the top of the window. Scroll position + modalTopPadding = the "top" css setting for the modal container div.</td>
+</tr>
+<tr>
+<td>modalHomeBg</td>
+    <td>String</td>
+    <td>jhm-modal-bg</td>
+    <td>This is the class for the background div that covers all page content.</td>
+</tr>
+<tr>
+<td>modalHomeDiv</td>
+    <td>String</td>
+    <td>jhm-modal</td>
+    <td>This is the class for the main modal container div. All modal window content is placed inside this.</td>
+</tr>
+<tr>
+<td>modalHomeClose</td>
+    <td>String</td>
+    <td>jhm-modal-close</td>
+    <td>This is the class for the close div inside the modal content container.</td>
+</tr>
+<tr>
+<td>modalHomeLoader</td>
+    <td>String</td>
+    <td>jhm-modal-loading</td>
+    <td>This is the class for the "loading" div that is displayed as Ajax requests are being loaded.</td>
+</tr>
+<tr>
+<td>modalHomeContent</td>
+    <td>String</td>
+    <td>jhm-modal-content</td>
+    <td>This is the class for the content div that is displayed below the closing and loading divs.</td>
+</tr>
+<tr>
+<td>modalHomeOpenEvent</td>
+    <td>String</td>
+    <td>jhm.modal.open</td>
+    <td>This is the name of the event that's tied to opening the modal. Fire events with <code>$().trigger('event name')</code>
+</td>
+</tr>
+<tr>
+<td>modalHomeOpenEvent</td>
+    <td>String</td>
+    <td>jhm.modal.close</td>
+    <td>This is the name of the event that's tied to closing the modal. Fire events with <code>$().trigger('event name')</code>
+</td>
+</tr>
+</table><p><strong>Ajax Specific Settings</strong></p>
+
+<table>
+<tr>
+<th>Setting</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+</tr>
+<tr>
+<td>ajaxFailureContent</td>
+    <td>String</td>
+    <td>Blank</td>
+    <td>This is the content that is loaded when an Ajax request fails. This is separate from the failure function that can be passed in through the Ajax method.</td>
+</tr>
+<tr>
+<td>success</td>
+    <td>function</td>
+    <td>null</td>
+    <td>This function will be called when there is a successful Ajax call (see [jQuery.ajax() done()](http://api.jquery.com/jQuery.ajax/).</td>
+</tr>
+<tr>
+<td>failure</td>
+    <td>function</td>
+    <td>null</td>
+    <td>This function will be called when there is failed Ajax call (see [jQuery.ajax() fail()](http://api.jquery.com/jQuery.ajax/).</td>
+</tr>
+</table><h2>
+<a name="build-guide" class="anchor" href="#build-guide"><span class="octicon octicon-link"></span></a>Build Guide</h2>
+
+<p>This plugin uses <a href="http://qunitjs.com/">QUnit</a> to run unit tests as well as <a href="http://gruntjs.com/">Grunt</a> to minify and deploy files.</p>
+
+<h3>
+<a name="qunit" class="anchor" href="#qunit"><span class="octicon octicon-link"></span></a>QUnit</h3>
+
+<p><a href="http://qunitjs.com/">QUnit</a> will run without installation. Simply visit the <a href="tests.html">test page</a> to run and view the test results.</p>
+
+<h3>
+<a name="grunt" class="anchor" href="#grunt"><span class="octicon octicon-link"></span></a>Grunt</h3>
+
+<p><a href="http://gruntjs.com/">Grunt</a> is used as the project build tool. If you haven't used Grunt before, please checkout their <a href="http://gruntjs.com/getting-started">Getting Started</a> guide first. It will walk you through installing the CLI and basic procedures with Grunt. Please note that you will also need to have Node.js installed to run everything. The main Grunt plugins used are stored in a local folder that is checked out with the project. You can view the plugins in the "node_modules" directory.</p>
+
+<h3>
+<a name="grunt-build-commands" class="anchor" href="#grunt-build-commands"><span class="octicon octicon-link"></span></a>Grunt Build Commands</h3>
+
+<p><strong>grunt</strong> - This will run the default task which in turn runs the jshint, qunit, css minification and javascript minification tasks. Minifed files will be outputted to the build/ directory</p>
+
+<p><strong>grunt test</strong> - This runs the jshint and qunit tasks but does not build the minified css and javascript files.</p>
+
+<p><strong>grunt dist</strong> - Purely a convenience function for me to allow the minified files to be automatically copied to a different project folder. Destination folder is set by the "distPath" property in the package.json file.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>jQuery ModalHome is licensed under the terms of the <a href="LICENSE-MIT">MIT License</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/dmill109">dmill109</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
