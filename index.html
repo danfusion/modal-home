@@ -83,8 +83,6 @@
                 });
                 $('.jhmModalOpenScroll').on('click',function (e) {
                     $(e.target).modalHome('ajax', {url: 'large_page.html', success: function (data) {console.log(data);} });
-                    
-                    //$('.modalDataHidden').modalHome();
                     e.preventDefault();
                 });
                 $('.jhmModalAjaxFail').on('click',function (e) {
@@ -101,8 +99,8 @@
             <a class="jhmModalOpen btn btn-primary" href="#">Click for Modal</a>
         </div>
         <div class="span12">
-            <h3>Ajax Loading</h3>
-            <a href="#" class="testModalOpen btn">Click for non-standard class test</a><br>
+            <a href="#" class="jhmModalOpenScroll btn">Click for scrolling test</a><br>
+			<a href="#" class="testModalOpen btn">Click for non-standard class test</a><br>
             <a href="#" class="jhmModalAjaxFail btn">Ajax Failure Message</a><br>
             <a href="#" class="jhmModalElemData btn">Display jQuery Hidden Element Message</a><br>
             <hr />
