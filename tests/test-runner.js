@@ -1,5 +1,5 @@
 /*jslint regexp: true, nomen: true, sloppy: true, debug: true */
-/*global $, console, window, jQuery, require, test, equal, notEqual, module, ok, start, stop, setTimeout, asyncTest */
+/*global $, console, document, window, jQuery, require, test, equal, notEqual, module, ok, start, stop, setTimeout, asyncTest */
 // tests
 module("Plugin Setup");
 test("ModalHome plugin loaded", function () {
@@ -35,8 +35,8 @@ asyncTest("ModalHome modal generated", 8, function () {
     $('.jhm-modal-close').trigger('click');
     
     setTimeout(function () {
-        equal($('.jhm-modal-bg:visible').length, 0, "Background div visible after close");
-        equal($('.jhm-modal:visible').length, 0, "Modal panel is visible after close");
+        equal($('.jhm-modal-bg').length, 0, "Background div not removed after close");
+        equal($('.jhm-modal').length, 0, "Modal panel is not removed after close");
         start();
     }, 1500);
 });
@@ -70,6 +70,23 @@ asyncTest("ModalHome generated with non-default classes", 7, function () {
         equal($('.test-modal-bg:visible').length, 0, "Background div should not be visible");
         equal($('.test-modal:visible').length, 0, "Modal panel should not be visible");
         start();
+    }, 1500);
+});
+asyncTest("ModalHome generated with non-default close text", 1, function () {
+    var $fixture = $("#qunit-fixture"),
+        settings = {
+            'content'           : 'non standard class test',
+            'immediateDisplay'  : false,
+			'modalHomeCloseMsg'    : 'DONE'
+        };
+
+    $fixture.modalHome(settings);
+    equal($('.jhm-modal-close').html(), 'DONE', "Custom close text not present");
+	
+	$().modalHome('hide');
+	
+	setTimeout(function () {	
+		start();
     }, 1500);
 });
 asyncTest("ModalHome ESC closes modal", 2, function () {
@@ -106,14 +123,14 @@ asyncTest("ModalHome background click closes modal", 2, function () {
 });
 asyncTest("ModalHome aligns to scroll height", 1, function () {
     var $fixture = $("#qunit-fixture"),
-        mtp = 50;
+        mtp = 50,
+		dh = $(document).height(),
+        wh = $(window).height(),
+        ds = dh - wh;
     // make window scrollable
     $fixture.height(1000);
     $fixture.css({'top': '0px', 'left': '0px'});
     
-    var dh = $(document).height(),
-        wh = $(window).height(),
-        ds = dh - wh;
     console.log('document', dh, 'window height', wh, 'delta scroll', ds);
     $(window).scrollTop(ds);
     
