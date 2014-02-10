@@ -155,6 +155,10 @@ This plugin uses [QUnit](http://qunitjs.com/) to run unit tests as well as [Grun
 
 **grunt dist** - Purely a convenience function for me to allow the minified files to be automatically copied to a different project folder. Destination folder is set by the "distPath" property in the package.json file.
 
+Versions
+--------
+2/10/2014 - 0.2.2 - Added "modalHomeCloseMsg" setting to control the contents of the close div (defaults to "x"). Updated the modal window to be removed from the DOM when the modal is closed. This avoids messy situations with custom styles and close buttton div content.
+
 License
 -------
 
