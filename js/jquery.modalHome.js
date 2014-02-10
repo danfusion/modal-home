@@ -48,7 +48,9 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
                 modalBG = createBg();
             }
             if (modal.length === 0) {
-            
+				modal = createModal();
+            }
+			
             // load static html
             if (settings.content.length > 0) {
                 settings.immediateDisplay = true;
