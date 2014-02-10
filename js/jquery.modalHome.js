@@ -5,27 +5,28 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
     
     // global variables setup
     var globals = {};
+	var defaults = {
+		'content'           : '',
+		'immediateDisplay'  : false,
+		'modalTopPadding'   : 75,
+		'modalHomeBg'       : 'jhm-modal-bg',
+		'modalHomeDiv'      : 'jhm-modal',
+		'modalHomeClose'    : 'jhm-modal-close',
+		'modalHomeCloseMsg'    : 'x',
+		'modalHomeLoader'  : 'jhm-modal-loading',
+		'modalHomeContent'  : 'jhm-modal-content',
+		'modalHomeOpenEvent'    : 'jhm.modal.open',
+		'modalHomeCloseEvent'   : 'jhm.modal.close',
+		'ajaxFailureContent'    : 'Failed to load resource'
+	};
     
     var getSettings = function () {
         return globals;
     };
     
     var setSettings = function (options) {
-        // public / defaults
-        globals = $.extend({
-            'content'           : '',
-            'immediateDisplay'  : false,
-            'modalTopPadding'   : 75,
-            'modalHomeBg'       : 'jhm-modal-bg',
-            'modalHomeDiv'      : 'jhm-modal',
-            'modalHomeClose'    : 'jhm-modal-close',
-			'modalHomeCloseMsg'    : 'x',
-            'modalHomeLoader'  : 'jhm-modal-loading',
-            'modalHomeContent'  : 'jhm-modal-content',
-            'modalHomeOpenEvent'    : 'jhm.modal.open',
-            'modalHomeCloseEvent'   : 'jhm.modal.close',
-            'ajaxFailureContent'    : 'Failed to load resource'
-        }, options);
+        globals = $.extend({}, defaults, options);
+		if (DEBUG) { console.log("Set Settings: ", defaults, options, globals); }
         
         return globals;
     };
@@ -34,13 +35,12 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
 		init : function (options) {
 			var settings = setSettings(options);
             
-            if (DEBUG) { console.log(this, settings); }
-            
             if (this.length > 0 && this.html() !== '') {
                 settings.content = this.html();
                 setSettings(settings);
             }
 
+			// init modal DOM objects
             var modalBG = $('.' + settings.modalHomeBg),
                 modal = $('.' + settings.modalHomeDiv);
             
@@ -122,9 +122,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
             });
         },
         hide: function () {
-            var settings = getSettings();
-            
-            $('.' + settings.modalHomeDiv).trigger(settings.modalHomeCloseEvent);
+            hideModal();
         }
 	};
     
@@ -138,7 +136,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
         var settings = getSettings();
         return $('.' + settings.modalHomeBg).before('<div class="' + settings.modalHomeDiv + '"><div class="' + settings.modalHomeClose + '">' + settings.modalHomeCloseMsg + '</div><div class="' + settings.modalHomeLoader + '"></div><div class="' + settings.modalHomeContent + '"></div></div>');
     };
-    
+	
     var revealModal = function (modal) {
         var settings = getSettings(),
             scrollTop = parseInt($(document).scrollTop(), 10);
@@ -155,8 +153,8 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
         var settings = getSettings();
         if (DEBUG) { console.log('hide'); }
         
-        $('.' + settings.modalHomeDiv).fadeOut(500);
-        $('.' + settings.modalHomeBg).delay(500).hide();
+        $('.' + settings.modalHomeDiv).fadeOut(500).remove();
+        $('.' + settings.modalHomeBg).delay(500).hide().remove();
     };
     
     var populateModal = function (content) {
@@ -164,6 +162,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
         if (DEBUG) { console.log('populate content', content); }
         $('.' + settings.modalHomeContent).empty();
         $('.' + settings.modalHomeContent).html(content);
+		$('.' + settings.modalHomeClose).html(settings.modalHomeCloseMsg);
     };
     
     var showLoader = function () {
