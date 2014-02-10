@@ -50,6 +50,19 @@
             font-weight: bold;
             cursor: pointer;
         }
+			
+		.custom-modal-close {
+			padding: 10px;
+			margin: 10px auto;
+			width: 85%;
+            background-color: #006DCC;
+			background-image: linear-gradient(to bottom, #0088CC, #0044CC);
+			background-repeat: repeat-x;
+			border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+			color: #FFFFFF;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+			border-radius: 5px;
+        }
         </style>
         
 		<script src="javascripts/jquery-1.8.3.min.js"></script>
@@ -88,6 +101,15 @@
                     $(e.target).modalHome('ajax', {url: 'ajax_data_bad.html',success: function (data) {console.log(data);}, failure: function (data) { console.log(data); }, ajaxFailureContent: 'This is a custom failure message' });
                     e.preventDefault();
                 });
+				$('.jhmModalNonStandardClose').on('click',function (e) {
+					$().modalHome({
+                        'content'           : 'Custom Close Button',
+                        'immediateDisplay'  : false,
+						'modalHomeClose'    : 'custom-modal-close',
+						'modalHomeCloseMsg'    : 'Done'
+                    });
+					e.preventDefault();
+				});
             });
         </script>
     </head>
@@ -100,6 +122,7 @@
         <div class="span12">
             <a href="#" class="jhmModalOpenScroll btn">Click for scrolling test</a><br>
 			<a href="#" class="testModalOpen btn">Click for non-standard class test</a><br>
+			<a href="#" class="jhmModalNonStandardClose btn">Click for non-standard close button text</a><br>
             <a href="#" class="jhmModalAjaxFail btn">Ajax Failure Message</a><br>
             <a href="#" class="jhmModalElemData btn">Display jQuery Hidden Element Message</a><br>
             <hr />
