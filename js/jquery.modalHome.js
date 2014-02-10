@@ -19,6 +19,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
             'modalHomeBg'       : 'jhm-modal-bg',
             'modalHomeDiv'      : 'jhm-modal',
             'modalHomeClose'    : 'jhm-modal-close',
+			'modalHomeCloseMsg'    : 'x',
             'modalHomeLoader'  : 'jhm-modal-loading',
             'modalHomeContent'  : 'jhm-modal-content',
             'modalHomeOpenEvent'    : 'jhm.modal.open',
@@ -135,7 +136,7 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
     
     var createModal = function (content) {
         var settings = getSettings();
-        return $('.' + settings.modalHomeBg).before('<div class="' + settings.modalHomeDiv + '"><div class="' + settings.modalHomeClose + '">x</div><div class="' + settings.modalHomeLoader + '"></div><div class="' + settings.modalHomeContent + '"></div></div>');
+        return $('.' + settings.modalHomeBg).before('<div class="' + settings.modalHomeDiv + '"><div class="' + settings.modalHomeClose + '">' + settings.modalHomeCloseMsg + '</div><div class="' + settings.modalHomeLoader + '"></div><div class="' + settings.modalHomeContent + '"></div></div>');
     };
     
     var revealModal = function (modal) {
