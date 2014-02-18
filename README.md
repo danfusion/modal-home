@@ -83,6 +83,12 @@ For each method, it's possible to pass in a JSON object that specifies a variety
     <td>This is the class for the close div inside the modal content container.</td>
 </tr>
 <tr>
+    <td>modalHomeCloseMsg</td>
+    <td>String</td>
+    <td>x</td>
+    <td>This is the text displayed in the close div inside the modal content container.</td>
+</tr>
+<tr>
     <td>modalHomeLoader</td>
     <td>String</td>
     <td>jhm-modal-loading</td>
@@ -105,6 +111,12 @@ For each method, it's possible to pass in a JSON object that specifies a variety
     <td>String</td>
     <td>jhm.modal.close</td>
     <td>This is the name of the event that's tied to closing the modal. Fire events with <code>$().trigger('event name')</code></td>
+</tr>
+<tr>
+    <td>success</td>
+    <td>function</td>
+    <td>null</td>
+    <td>This function will be called when the modal-home window is successfully generated.</td>
 </tr>
 </table>
 
@@ -158,6 +170,7 @@ This plugin uses [QUnit](http://qunitjs.com/) to run unit tests as well as [Grun
 Versions
 --------
 2/10/2014 - 0.2.2 - Added "modalHomeCloseMsg" setting to control the contents of the close div (defaults to "x"). Updated the modal window to be removed from the DOM when the modal is closed. This avoids messy situations with custom styles and close buttton div content.
+2/18/2014 - 0.2.3 - Added success function call to non-Ajax content load. Allows a function to fire once the modal window is populated.
 
 License
 -------

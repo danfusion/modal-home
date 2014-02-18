@@ -55,6 +55,10 @@ if (typeof DEBUG === 'undefined') { DEBUG = true; } // removed on uglify
             if (settings.content.length > 0) {
                 settings.immediateDisplay = true;
                 populateModal(settings.content);
+				
+				if (settings.success !== undefined && $.isFunction(settings.success)) {
+                    settings.success({});
+                }
             }
             
             $('.' + settings.modalHomeClose).on('click', function () {

@@ -72,6 +72,14 @@ asyncTest("ModalHome generated with non-default classes", 7, function () {
         start();
     }, 1500);
 });
+test("ModalHome success function on non-ajax call", 1, function () {
+    var $fixture = $("#qunit-fixture"),
+		_testSuccess = function (data) {
+			ok(data !== undefined);
+		};
+	 
+	$fixture.modalHome({content: 'Lorem Ipsum', success: function (d) { _testSuccess(d); } });
+});
 asyncTest("ModalHome generated with non-default close text", 1, function () {
     var $fixture = $("#qunit-fixture"),
         settings = {
@@ -85,7 +93,7 @@ asyncTest("ModalHome generated with non-default close text", 1, function () {
 	
 	$().modalHome('hide');
 	
-	setTimeout(function () {	
+	setTimeout(function () {
 		start();
     }, 1500);
 });

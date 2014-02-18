@@ -1,7 +1,7 @@
 {
     "name": "jQuery ModalHome",
     "description": "A simple mobile-friendly jQuery plugin for modal display windows.",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "distPath": "C:/codex/JHM-SiteExecutive/www/lib/",
     "author": {
         "name": "Dan Miller",
